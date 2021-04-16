@@ -5,5 +5,5 @@ Resources:
       Timeout: 300
       MemorySize: 128
       Handler: helloworld.App
-      CodeUri: /Users/sanderdemeester/Documents/coding/experiments/java/droppingprivileges/HelloWorldFunction
+      CodeUri: /Users/sanderdemeester/Documents/coding/experiments/java/droppingprivileges/DroppingPrivilegesFunction
       Runtime: java11

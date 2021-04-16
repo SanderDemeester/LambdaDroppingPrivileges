@@ -11,11 +11,11 @@ Globals:
     Timeout: 20
 
 Resources:
-  HelloWorldFunction:
+  DroppingPrivilegesFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: helloworld.App::handleRequest
+      CodeUri: DroppingPrivilegesFunction
+      Handler: droppingprivileges.App::handleRequest
       Runtime: java11
       MemorySize: 512
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
@@ -32,12 +32,12 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
+  DroppingPrivilegesApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
+  DroppingPrivilegesFunction:
+    Description: "Dropping Privileges Lambda Function ARN"
+    Value: !GetAtt DroppingPrivilegesFunction.Arn
+  DroppingPrivilegesFunctionIamRole:
+    Description: "Implicit IAM Role created for Dropping Privileges Function"
     Value: !GetAtt HelloWorldFunctionRole.Arn

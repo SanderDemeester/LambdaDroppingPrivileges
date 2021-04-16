@@ -16,11 +16,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HelloWorld" />
+        <module name="DroppingPrivileges" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="HelloWorld" target="1.8" />
+      <module name="DroppingPrivileges" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
