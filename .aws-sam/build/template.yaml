@@ -9,11 +9,11 @@ Globals:
   Function:
     Timeout: 20
 Resources:
-  HelloWorldFunction:
+  DroppingPrivilegesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: helloworld.App::handleRequest
+      CodeUri: DroppingPrivilegesFunction
+      Handler: droppingprivileges.App::handleRequest
       Runtime: java11
       MemorySize: 512
       Environment:
@@ -26,18 +26,18 @@ Resources:
             Path: /hello
             Method: get
 Outputs:
-  HelloWorldApi:
+  DroppingPrivilegesApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
     Value:
       Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
-  HelloWorldFunction:
-    Description: Hello World Lambda Function ARN
+  DroppingPrivilegesFunction:
+    Description: Dropping Privileges Lambda Function ARN
     Value:
       Fn::GetAtt:
-      - HelloWorldFunction
+      - DroppingPrivilegesFunction
       - Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
+  DroppingPrivilegesFunctionIamRole:
+    Description: Implicit IAM Role created for Dropping Privileges Function
     Value:
       Fn::GetAtt:
       - HelloWorldFunctionRole
