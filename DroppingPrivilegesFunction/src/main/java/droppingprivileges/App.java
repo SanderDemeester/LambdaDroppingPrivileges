@@ -33,7 +33,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
     public static final String AWS_SECRET_KEY = "AWS_SECRET_KEY";
     public static final String AWS_SESSION_TOKEN = "AWS_SESSION_TOKEN";
 
-    private Utils utils = new Utils();
+    private final Utils utils = new Utils();
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
@@ -43,9 +43,6 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
         JSONObject requestBody = utils.getEventData(input, context);
         String userId1 = getPrincipalId();
-
-//        Map<String, String> env = System.getenv();
-//        System.out.println(env);
 
         String access_key_id = null;
         String secret_access_key = null;
@@ -112,7 +109,6 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 .build();
         Credentials credentials = null;
         try {
-
             AssumeRoleRequest roleRequest = new AssumeRoleRequest()
                     .withRoleArn(roleArn)
                     .withRoleSessionName(sessionName);
