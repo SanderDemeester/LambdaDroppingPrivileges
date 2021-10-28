@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.lang.reflect.*;
 
+import com.amazonaws.services.securitytoken.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,11 +22,6 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
-import com.amazonaws.services.securitytoken.model.GetCallerIdentityRequest;
-import com.amazonaws.services.securitytoken.model.GetCallerIdentityResult;
-import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
-import com.amazonaws.services.securitytoken.model.AssumeRoleResponse;
-import com.amazonaws.services.securitytoken.model.Credentials;
 
 /**
  * Handler for requests to Lambda function.
@@ -51,11 +47,29 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 //        Map<String, String> env = System.getenv();
 //        System.out.println(env);
 
-        setEnv(AWS_ACCESS_KEY_ID, requestBody.get("AWS_ACCESS_KEY_ID").toString());
-        setEnv(AWS_SECRET_ACCESS_KEY, requestBody.get("AWS_SECRET_ACCESS_KEY").toString());
-        setEnv(AWS_SECRET_KEY, requestBody.get("AWS_SECRET_KEY").toString());
-        setEnv(AWS_SESSION_TOKEN, requestBody.get("AWS_SESSION_TOKEN").toString());
+        String access_key_id = null;
+        String secret_access_key = null;
+        String secret_key = null;
+        String session_token = null;
 
+        if(requestBody.get("IAM_ROLE") != null){
+            Credentials credential = assumeRole(requestBody.get("IAM_ROLE").toString(), requestBody.get("SESSION_NAME").toString());
+            access_key_id = credential.getAccessKeyId();
+            secret_access_key = credential.getSecretAccessKey();
+            secret_key = credential.getSecretAccessKey();
+            session_token = credential.getSessionToken();
+        }else{
+            access_key_id = requestBody.get("AWS_ACCESS_KEY_ID").toString();
+            secret_access_key = requestBody.get("AWS_SECRET_ACCESS_KEY").toString();
+            secret_key = requestBody.get("AWS_SECRET_ACCESS_KEY").toString();
+            session_token = requestBody.get("AWS_SESSION_TOKEN").toString();
+        }
+
+        setEnv(AWS_ACCESS_KEY_ID, access_key_id);
+        setEnv(AWS_SECRET_ACCESS_KEY, secret_access_key);
+        setEnv(AWS_SECRET_KEY, secret_key);
+        setEnv(AWS_SESSION_TOKEN, session_token);
+        
         String userId2 = getPrincipalId();
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
@@ -96,15 +110,16 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         AWSSecurityTokenService sts_client = AWSSecurityTokenServiceClientBuilder
                 .standard()
                 .build();
+        Credentials credentials = null;
         try {
-            AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
-                    .roleArn(roleArn)
-                    .roleSessionName(sessionName)
-                    .build();
 
-            AssumeRoleResponse roleResponse = sts_client.assumeRole(roleRequest);
-            Credentials credentials = roleResponse.credentials();
-        }catch(StsException e){
+            AssumeRoleRequest roleRequest = new AssumeRoleRequest()
+                    .withRoleArn(roleArn)
+                    .withRoleSessionName(sessionName);
+
+            AssumeRoleResult roleResponse = sts_client.assumeRole(roleRequest);
+            credentials = roleResponse.getCredentials();
+        }catch(Exception e){
             System.err.println(e.getMessage());
             System.exit(1);
         }
