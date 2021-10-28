@@ -1,18 +1,8 @@
 {
     "body": "{\"IAM_ROLE\": \"arn:aws:iam::391076636573:role/DropPrivilegesTest001\", \"SESSION_NAME\":\"test\"}",
     "resource": "/{proxy+}",
-    "path": "/path/to/resource",
-    "httpMethod": "POST",
-    "isBase64Encoded": false,
-    "queryStringParameters": {
 
-    },
-    "pathParameters": {
-      "proxy": "/"
-    },
-    "stageVariables": {
-      "baz": "qux"
-    },
+    "httpMethod": "POST",
     "headers": {
       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
       "Accept-Encoding": "gzip, deflate, sdch",

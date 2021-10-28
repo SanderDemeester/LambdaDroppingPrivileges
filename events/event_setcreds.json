@@ -1,18 +1,6 @@
 {
     "body": "{\"AWS_ACCESS_KEY_ID\": \"PLACEHOLDER1\", \"AWS_SECRET_ACCESS_KEY\":\"PLACEHOLDER2\",\"AWS_SECRET_KEY\":\"PLACEHOLDER2\", \"AWS_SESSION_TOKEN\":\"PLACEHOLDER3\"}",
     "resource": "/{proxy+}",
-    "path": "/path/to/resource",
-    "httpMethod": "POST",
-    "isBase64Encoded": false,
-    "queryStringParameters": {
-
-    },
-    "pathParameters": {
-      "proxy": "/"
-    },
-    "stageVariables": {
-      "baz": "qux"
-    },
     "headers": {
       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
       "Accept-Encoding": "gzip, deflate, sdch",

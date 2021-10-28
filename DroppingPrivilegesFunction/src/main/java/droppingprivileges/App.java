@@ -69,7 +69,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         setEnv(AWS_SECRET_ACCESS_KEY, secret_access_key);
         setEnv(AWS_SECRET_KEY, secret_key);
         setEnv(AWS_SESSION_TOKEN, session_token);
-        
+
         String userId2 = getPrincipalId();
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
