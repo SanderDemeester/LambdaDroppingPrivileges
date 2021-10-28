@@ -1,3 +1,7 @@
+DroppingPrivilegesFunction/.aws-sam/**
+DroppingPrivilegesFunction/dependency-reduced-pom.xml
+.idea/**
+**.iml
 .aws-sam/**
 **.jar
 **.swp
