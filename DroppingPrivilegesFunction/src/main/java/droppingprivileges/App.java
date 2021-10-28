@@ -78,7 +78,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
             writableEnv.put(key, value);
         }catch(Exception e){
             System.err.println(e.getMessage());
-            System.exit(1);        }
+            System.exit(1);
+        }
     }
 
     public static String getPrincipalId(){
